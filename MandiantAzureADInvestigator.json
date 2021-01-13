@@ -1,0 +1,190 @@
+{
+    "Applications": {
+        "00000003-0000-0000-c000-000000000000": {
+            "name": "Microsoft Graph",
+            "data theft": {
+                "810c84a8-4a9e-49e6-bf7d-12d183f40d01": "Mail.Read (Read mail in all mailboxes)",
+                "75359482-378d-4052-8f01-80520e7db3cd": "Files.ReadWrite.All (Read write all SharePoint files)",
+                "01d4889c-1287-42c6-ac1f-5d1e02578ef6": "Files.Read.All",
+                "332a536c-c7ef-4017-ab91-336970924f0d": "Sites.Read.All (Read all documents in SharePoint)",
+                "e2a3a72e-5f79-4c64-b1b1-878b674786c9": "Mail.ReadWrite (read and write mail in all mailboxes)",
+                "b9bb2381-47a4-46cd-aafb-00cb12f68504": "ChatMessage.Read.All (Read all teams one-to-one and group chats)",
+                "9492366f-7969-46a4-8d15-ed1a20078fff": "Sites.ReadWrite.All (Read and write over SharePoint)",
+                "3aeca27b-ee3a-4c2b-8ded-80376e2134a4": "Notes.Read.All (Read all OneNote notebooks)",
+                "294ce7c9-31ba-490a-ad7d-97a7d075e4ed": "Chat.ReadWrite.All (Read and Write all Teams Chat Messages)",
+                "6b7d71aa-70aa-4810-a8d9-5d9fb2830017": "Chat.Read.All",
+                "7b2449af-6ccd-4f4d-9f78-e550c193f0d1": "ChannelMessage.Read.All",
+                "0c458cef-11f3-48c2-a568-c66751c238c0": "Notes.ReadWrite.All",
+                "a82116e5-55eb-4c41-a434-62fe8a61c773": "Sites.FullControl.All (SharePoint)",
+                "a7a681dc-756e-4909-b988-f160edc6655f": "Calls.AccessMedia.All"
+            },
+            "control": {
+                "9e3f62cf-ca93-4989-b6ce-bf83c28f9fe8": "RoleManagement.ReadWrite.Directory (Read and write all RBAC settings)",
+                "741f803b-c850-494e-b5df-cde7c675a1ca": "User.ReadWrite.All",
+                "7e05723c-0bb0-42da-be95-ae9f08a6e53c": "Domain.ReadWrite.All (Add, verify, and remove domains)",
+                "19dbc75e-c2e2-444c-a770-ec69d8559fc7": "Directory.ReadWrite.All",
+                "78145de6-330d-4800-a6ce-494ff2d33d07": "DeviceManagementApps.ReadWrite.All (Read and Write apps, app configs, and app protection policies in InTune)",
+                "9241abd9-d0e6-425a-bd4f-47ba86e767a4": "DeviceManagementConfiguration.ReadWrite.All",
+                "243333ab-4d21-40cb-a475-36241daa0842": "DeviceManagementManagedDevices.ReadWrite.All",
+                "5ac13192-7ace-4fcf-b828-1a26f28068ee": "DeviceManagementServiceConfig.ReadWrite.All",
+                "06b708a9-e830-4db3-a914-8e69da51d44f": "AppRoleAssignment.ReadWrite.All",
+                "8e8e4742-1d95-4f68-9d56-6ee75648c72a": "DelegatedPermissionGrant.ReadWite.All",
+                "854d9ab1-6657-4ec8-be45-823027bcd009": "PrivilegedAccess.ReadWrite.AzureAD",
+                "2f6817f8-7b12-4f0f-bc18-eeaf60705a9e": "PrivilegedAccess.ReadWrite.AzureADGroup",
+                "6f9d5abc-2db6-400b-a267-7de22a40fb87": "PrivilegedAccess.ReadWrite.AzureResources",
+                "60182ac6-4565-4baa-8b04-9350fe8dbfca": "ApprovalRequest.ReadWrite.PriviligedAccess",
+                "01c0a623-fc9b-48e9-b794-0756f8e8f067": "Policy.ReadWrite.ConditionalAccess",
+                "50483e42-d915-4231-9639-7fdb7fd190e5": "UserAuthenticationMethod.ReadWrite.All",
+                "a402ca1c-2696-4531-972d-6e5ee4aa11ea": "Policy.ReadWrite.PermissionGrant",
+                "292d869f-3427-49a8-9dab-8c70152b74e9": "Organization.ReadWrite.All (Read and write all organization information)",
+                "1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9": "Application.ReadWrite.All (Does not allow management of consent grants)"
+            }
+        },
+        "00000002-0000-0000-c000-000000000000": {
+            "name": "Windows Azure Active Directory",
+            "control": {
+                "1cda74f2-2616-4834-b122-5cb1b07f8a59": "Application.ReadWrite.All",
+                "78c8a3c8-a07e-4b9e-af1b-b5ccab50a175": "Directory.ReadWrite.All",
+                "abefe9df-d5a9-41c6-a60b-27b38eac3efb": "Domain.ReadWrite.All",
+                "aaff0dfd-0295-48b6-a5cc-9f465bc87928": "Domain.ReadWrite.All"
+            }
+        },
+        "00000003-0000-0ff1-ce00-000000000000": {
+            "name": "Office 365 SharePoint Online",
+            "data theft": {
+                "id=9bff6588-13f2-4c48-bbf2-ddab62256b36": "value=Sites.Manage.All",
+                "id=678536fe-1083-478a-9c59-b99265e6b0d3": "value=Sites.FullControl.All",
+                "id=d13f72ca-a275-4b96-b789-48ebcc4da984": "value=Sites.Read.All",
+                "id=fbcd29d2-fcca-4405-aded-518d457caae4": "value=Sites.ReadWrite.All"
+            }
+        }
+    },
+    "ServicePrincipals": {
+        "Microsoft Graph": {
+            "data theft": {
+                "810c84a8-4a9e-49e6-bf7d-12d183f40d01": "Mail.Read (Read mail in all mailboxes)",
+                "75359482-378d-4052-8f01-80520e7db3cd": "Files.ReadWrite.All (Read write all SharePoint files)",
+                "01d4889c-1287-42c6-ac1f-5d1e02578ef6": "Files.Read.All",
+                "332a536c-c7ef-4017-ab91-336970924f0d": "Sites.Read.All (Read all documents in SharePoint)",
+                "e2a3a72e-5f79-4c64-b1b1-878b674786c9": "Mail.ReadWrite (read and write mail in all mailboxes)",
+                "b9bb2381-47a4-46cd-aafb-00cb12f68504": "ChatMessage.Read.All (Read all teams one-to-one and group chats)",
+                "9492366f-7969-46a4-8d15-ed1a20078fff": "Sites.ReadWrite.All (Read and write over SharePoint)",
+                "3aeca27b-ee3a-4c2b-8ded-80376e2134a4": "Notes.Read.All (Read all OneNote notebooks)",
+                "294ce7c9-31ba-490a-ad7d-97a7d075e4ed": "Chat.ReadWrite.All (Read and Write all Teams Chat Messages)",
+                "6b7d71aa-70aa-4810-a8d9-5d9fb2830017": "Chat.Read.All",
+                "7b2449af-6ccd-4f4d-9f78-e550c193f0d1": "ChannelMessage.Read.All",
+                "0c458cef-11f3-48c2-a568-c66751c238c0": "Notes.ReadWrite.All",
+                "a82116e5-55eb-4c41-a434-62fe8a61c773": "Sites.FullControl.All (SharePoint)",
+                "a7a681dc-756e-4909-b988-f160edc6655f": "Calls.AccessMedia.All"
+            },
+            "control": {
+                "9e3f62cf-ca93-4989-b6ce-bf83c28f9fe8": "RoleManagement.ReadWrite.Directory (Read and write all RBAC settings)",
+                "741f803b-c850-494e-b5df-cde7c675a1ca": "User.ReadWrite.All",
+                "7e05723c-0bb0-42da-be95-ae9f08a6e53c": "Domain.ReadWrite.All (Add, verify, and remove domains)",
+                "19dbc75e-c2e2-444c-a770-ec69d8559fc7": "Directory.ReadWrite.All",
+                "78145de6-330d-4800-a6ce-494ff2d33d07": "DeviceManagementApps.ReadWrite.All (Read and Write apps, app configs, and app protection policies in InTune)",
+                "9241abd9-d0e6-425a-bd4f-47ba86e767a4": "DeviceManagementConfiguration.ReadWrite.All",
+                "243333ab-4d21-40cb-a475-36241daa0842": "DeviceManagementManagedDevices.ReadWrite.All",
+                "5ac13192-7ace-4fcf-b828-1a26f28068ee": "DeviceManagementServiceConfig.ReadWrite.All",
+                "06b708a9-e830-4db3-a914-8e69da51d44f": "AppRoleAssignment.ReadWrite.All",
+                "8e8e4742-1d95-4f68-9d56-6ee75648c72a": "DelegatedPermissionGrant.ReadWite.All",
+                "854d9ab1-6657-4ec8-be45-823027bcd009": "PrivilegedAccess.ReadWrite.AzureAD",
+                "2f6817f8-7b12-4f0f-bc18-eeaf60705a9e": "PrivilegedAccess.ReadWrite.AzureADGroup",
+                "6f9d5abc-2db6-400b-a267-7de22a40fb87": "PrivilegedAccess.ReadWrite.AzureResources",
+                "60182ac6-4565-4baa-8b04-9350fe8dbfca": "ApprovalRequest.ReadWrite.PriviligedAccess",
+                "01c0a623-fc9b-48e9-b794-0756f8e8f067": "Policy.ReadWrite.ConditionalAccess",
+                "50483e42-d915-4231-9639-7fdb7fd190e5": "UserAuthenticationMethod.ReadWrite.All",
+                "a402ca1c-2696-4531-972d-6e5ee4aa11ea": "Policy.ReadWrite.PermissionGrant",
+                "292d869f-3427-49a8-9dab-8c70152b74e9": "Organization.ReadWrite.All (Read and write all organization information)",
+                "1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9": "Application.ReadWrite.All (Does not allow management of consent grants)"
+            }
+        },
+        "Windows Azure Active Directory": {
+            "control": {
+                "1cda74f2-2616-4834-b122-5cb1b07f8a59": "Application.ReadWrite.All",
+                "78c8a3c8-a07e-4b9e-af1b-b5ccab50a175": "Directory.ReadWrite.All",
+                "abefe9df-d5a9-41c6-a60b-27b38eac3efb": "Domain.ReadWrite.All",
+                "aaff0dfd-0295-48b6-a5cc-9f465bc87928": "Domain.ReadWrite.All"
+            } 
+        },
+        "Office 365 SharePoint Online": {
+            "data theft": {
+                "id=9bff6588-13f2-4c48-bbf2-ddab62256b36": "value=Sites.Manage.All",
+                "id=678536fe-1083-478a-9c59-b99265e6b0d3": "value=Sites.FullControl.All",
+                "id=d13f72ca-a275-4b96-b789-48ebcc4da984": "value=Sites.Read.All",
+                "id=fbcd29d2-fcca-4405-aded-518d457caae4": "value=Sites.ReadWrite.All"
+            }
+        }
+    },
+    "DefaultAuditQueries":{
+        "UNC2452":[
+            {
+                "description": "Search for 'Update Application' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Update application'",
+                "outputfile" : "update_application",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for 'Set domain authentication' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Set domain authentication'",
+                "outputfile" : "set_domain_auth",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for 'Set federation settings on domain' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Set federation settings on domain'",
+                "outputfile" : "set_fed_setting_on_domain",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for 'Update application - Certificates and secrets management' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Update application - Certificates and secrets management'",
+                "outputfile" : "update_app_certs_and_secrets",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for Mailbox Login events using PowerShell",
+                "query" : "Get-MandiantBulkUAL -Operations 'MailboxLogin' -FreeText 'Powershell'",
+                "outputfile" : "powershell_logins",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for 'Update service principal' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Update service principal'",
+                "outputfile" : "update_serviceprincipal",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for 'Add service principal credentials' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Add service principal credentials'",
+                "outputfile" : "add_service_principal_credentials",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for Add app role assignment' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Add app role assignment'",
+                "outputfile" : "add_app_role_assignment",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for 'Add app role assignment grant to user.' events",
+                "query" : "Get-MandiantBulkUAL -Operations 'Add app role assignment grant to user.'",
+                "outputfile" : "add_app_role_assignment_for_user",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for PowerShell authentication events. These events are not inherently bad",
+                "query" : "Get-MandiantBulkUAL -FreeText 'a0c73c16-a7e3-4564-9a95-2bdf47383716'",
+                "outputfile" : "powershell_authentication",
+                "dateoffset": 90
+            },
+            {
+                "description": "Search for PowerShell authentication events. These events are not inherently bad",
+                "query" : "Get-MandiantBulkUAL -FreeText '1b730954-1685-4b74-9bfd-dac224a7b894'",
+                "outputfile" : "powershell_authentication",
+                "dateoffset": 90
+            }
+        ]
+    }
+    
+}
