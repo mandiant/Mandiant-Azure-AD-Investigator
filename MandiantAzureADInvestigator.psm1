@@ -130,7 +130,7 @@ function Invoke-MandiantAuditAzureADDomains {
                 $issuer = $federation_data.IssuerUri
                 [PSCustomObject]@{
                     'Domain Name'            = $domain.Name
-                    'Domain Federation Name' = $domain.FederationBrandName
+                    'Domain Federation Name' = $federation_data.FederationBrandName
                     'Federation Issuer URI'  = $issuer
                 } | Export-Csv -NoTypeInformation -Append -Path $(Join-Path -Path $OutputPath -ChildPath 'Federated Domains.csv')
 
