@@ -134,6 +134,12 @@ Directory.Read.All (Read all data in the organization directory)
 ```
 :warning: The script has identified an Application with high-risk API permissions and added credentials. This may be expected, as some third-party or custom-built applications require added credentials in order to function. This may also be an artifact of UNC2452 activity in your environment. Consult with your administrators and search the audit logs to verify the credential is legitimate.
 
+### Cloud Solution Provider Program
+
+This module checks to see if the tenant is managed by a CSP, or partner, and if delegated administration is enabled. Delegated administration allows the CSP to access a customer tenant with the same privileges as a Global Administrator. Although the CSP program enforces strong security controls on the partner's tenant, a threat actor that compromises the CSP may be able to access customer environments. Organizations should verify if their partner needs delegated admin privileges and remove it if not. If the partner must maintain delegated admin access, consider implementing Conditonal Access Policies to restrict their access.
+
+Organizations can check and manage partner relationships by navigating to the [Admin Center](https://admin.microsoft.com) and navigating to `Settings` -> `Partner Relationships` on the left-hand menu bar.
+
 ### Unified Audit Log
 
 This module is a helper script to search the Unified Audit Log. Searching the Unified Audit Log has many technical caveats that can be easy to overlook. This module can help simplify the search process by implementing best practices for navigating these caveats and handling some common errors.

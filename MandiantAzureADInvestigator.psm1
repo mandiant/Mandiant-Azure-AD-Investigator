@@ -106,7 +106,7 @@ function Invoke-MandiantAuditAzureADDomains {
             Write-Warning -Message $_
             break
         }
-        Write-Host "`t Checking federated domains..." -ForegroundColor Green
+        Write-Host "Checking federated domains..." -ForegroundColor Green
         Try {
             $unverified = Get-MsolDomain -Status unverified -ErrorAction Stop
             If ($unverified.Count -ge 1) {
@@ -467,7 +467,7 @@ function Invoke-MandiantAuditAzureADServicePrincipals {
         }
 
         Try {
-            Write-Host "`t Checking for suspicious Service Principals..." -ForegroundColor Green
+            Write-Host -Object "Checking for suspicious Service Principals..." -ForegroundColor Green
             $service_principals = Get-AzureADServicePrincipal -All $True
 
             $results = @()
@@ -569,6 +569,32 @@ function Invoke-MandiantAuditAzureADServicePrincipals {
     }
 }
 
+function Invoke-MandiantGetCSPInformation {
+    <#
+    .SYNOPSIS
+    Checks the tenant to see if the tenant has any Partner access configured.
+    
+    .DESCRIPTION
+    Microsoft's CSP program allows for external companies to manage customer tenants. 
+    Customers can permit the partner to access their tenant as a "delegated admin", accessing
+    the tenant with Global Admin Permissions. This can present a risk if the partner is compromised.
+    #>
+
+    Process {
+        Write-Host -Object "Checking for partner relationships..." -ForegroundColor Green
+        $partnerInfo = Get-MsolPartnerInformation
+        if($partnerInfo.DapEnabled -eq $true)
+        {
+            Write-Host -Object "!! Identified partner relationship with Delegated Admin enabled" -ForegroundColor Yellow
+            Write-Host -Object "This means that a partner can access your tenant with the same privileges as a Global Admin."
+            Write-Host -Object "Verify if this level of privilege is necessary and remove it if not. Go to the Partner Relationships setting in the 365 Admin Center to manage this."
+            Write-Host -Object "If necessary, consider implementing Conditional Access Policies to limt partner access to certain IP addresses"
+
+        } else {
+            Write-Host -Object "No partner relationship found."
+        }
+    }
+}
 function Invoke-MandiantAuditAzureADApplications {
     Param(
         [Parameter(Mandatory = $true)]
@@ -605,7 +631,7 @@ function Invoke-MandiantAuditAzureADApplications {
         }
           
         Try {
-            Write-Host "`t Checking for suspicious Azure AD App Registrations..." -ForegroundColor Green
+            Write-Host -Object "Checking for suspicious Azure AD App Registrations..." -ForegroundColor Green
             $apps = Get-AzureADApplication -All $True
 
             $results = @()
@@ -788,7 +814,9 @@ function Invoke-MandiantAllChecks
         Invoke-MandiantAuditAzureADApplications -OutputPath $OutputPath
         Invoke-MandiantAuditAzureADServicePrincipals -OutputPath $OutputPath
         Invoke-MandiantAuditAzureADDomains -OutputPath $OutputPath
+        Invoke-MandiantGetCSPInformation
         Get-MandiantUnc2452AuditLogs -OutputPath $OutputPath
+        
     }
 }
 function Disconnect-MandiantAzureEnvironment {
