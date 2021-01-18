@@ -106,7 +106,7 @@ function Invoke-MandiantAuditAzureADDomains {
             Write-Warning -Message $_
             break
         }
-
+        Write-Host "`t Checking federated domains..." -ForegroundColor Green
         Try {
             $unverified = Get-MsolDomain -Status unverified -ErrorAction Stop
             If ($unverified.Count -ge 1) {
@@ -130,7 +130,7 @@ function Invoke-MandiantAuditAzureADDomains {
                 $issuer = $federation_data.IssuerUri
                 [PSCustomObject]@{
                     'Domain Name'            = $domain.Name
-                    'Domain Federation Name' = $domain.FederationBrandName
+                    'Domain Federation Name' = $federation_data.FederationBrandName
                     'Federation Issuer URI'  = $issuer
                 } | Export-Csv -NoTypeInformation -Append -Path $(Join-Path -Path $OutputPath -ChildPath 'Federated Domains.csv')
 
@@ -467,6 +467,7 @@ function Invoke-MandiantAuditAzureADServicePrincipals {
         }
 
         Try {
+            Write-Host "`t Checking for suspicious Service Principals..." -ForegroundColor Green
             $service_principals = Get-AzureADServicePrincipal -All $True
 
             $results = @()
@@ -604,7 +605,7 @@ function Invoke-MandiantAuditAzureADApplications {
         }
           
         Try {
-
+            Write-Host "`t Checking for suspicious Azure AD App Registrations..." -ForegroundColor Green
             $apps = Get-AzureADApplication -All $True
 
             $results = @()
@@ -723,7 +724,7 @@ function Connect-MandiantAzureEnvironment {
 }
 
 
-function Get-MandiantUnc2542AuditLogs
+function Get-MandiantUnc2452AuditLogs
 {
     Param(
         [Parameter(Mandatory = $true)]
@@ -787,7 +788,7 @@ function Invoke-MandiantAllChecks
         Invoke-MandiantAuditAzureADApplications -OutputPath $OutputPath
         Invoke-MandiantAuditAzureADServicePrincipals -OutputPath $OutputPath
         Invoke-MandiantAuditAzureADDomains -OutputPath $OutputPath
-        Get-MandiantUnc2542AuditLogs -OutputPath $OutputPath
+        Get-MandiantUnc2452AuditLogs -OutputPath $OutputPath
     }
 }
 function Disconnect-MandiantAzureEnvironment {

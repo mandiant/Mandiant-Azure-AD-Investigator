@@ -158,7 +158,7 @@ By default, the module will search for log entries that can record UNC2452 techn
 The PowerShell module requires the installation of three Microsoft 365 PowerShell module.
 * AzureAD
 * MSOnline
-* ExchangeOnline
+* ExchangeOnlineManagement
 
 To install the modules:
 1. Open a PowerShell window as a local administrator (right-click then select Run As Administrator)
@@ -191,7 +191,7 @@ To grant an account `View-Only Audit Logs` in the Exchange Control Panel:
 
 PS C:\Users\admin\Desktop\mandiant>
 ```
-5. Connect to Azure AD by running `Connect-MandiantAzureEnvironment -UserPrincipalName <your username here>`. You should receive a login prompt and output to the PowerShell window indicating the connections have been established.
+5. Connect to Azure AD by running `Connect-MandiantAzureEnvironment -UserPrincipalName <your username here>`. You should receive a login prompt and output to the PowerShell window indicating the connections have been established. **Note**: If you run into issues you may need to change your execution policy by running `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`. This may require administrator privileges.
 ```
 ----------------------------------------------------------------------------
 The module allows access to all existing remote PowerShell (V1) cmdlets in addition to the 9 new, faster, and more reliable cmdlets.
