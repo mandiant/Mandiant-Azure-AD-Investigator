@@ -7,7 +7,7 @@ This repository contains a PowerShell module for detecting artifacts that may be
 
 This tool is **read-only**. It does not make any changes to the Microsoft 365 environment.
 
-In sumnmary this module will:
+In summary this module will:
 * Do a best effort job at identifying indicators of compromise that will require further verification and analysis
 
 It will *not*:
@@ -136,7 +136,7 @@ Directory.Read.All (Read all data in the organization directory)
 
 ### Cloud Solution Provider Program
 
-This module checks to see if the tenant is managed by a CSP, or partner, and if delegated administration is enabled. Delegated administration allows the CSP to access a customer tenant with the same privileges as a Global Administrator. Although the CSP program enforces strong security controls on the partner's tenant, a threat actor that compromises the CSP may be able to access customer environments. Organizations should verify if their partner needs delegated admin privileges and remove it if not. If the partner must maintain delegated admin access, consider implementing Conditonal Access Policies to restrict their access.
+This module checks to see if the tenant is managed by a CSP, or partner, and if delegated administration is enabled. Delegated administration allows the CSP to access a customer tenant with the same privileges as a Global Administrator. Although the CSP program enforces strong security controls on the partner's tenant, a threat actor that compromises the CSP may be able to access customer environments. Organizations should verify if their partner needs delegated admin privileges and remove it if not. If the partner must maintain delegated admin access, consider implementing Conditional Access Policies to restrict their access.
 
 Organizations can check and manage partner relationships by navigating to the [Admin Center](https://admin.microsoft.com) and navigating to `Settings` -> `Partner Relationships` on the left-hand menu bar.
 
@@ -144,7 +144,7 @@ Organizations can check and manage partner relationships by navigating to the [A
 
 This module is a helper script to search the Unified Audit Log. Searching the Unified Audit Log has many technical caveats that can be easy to overlook. This module can help simplify the search process by implementing best practices for navigating these caveats and handling some common errors.
 
-By default, the module will search for log entries that can record UNC2452 techniques. The log records may also capture legitimate adminsitrator activity, and will need to be verified.
+By default, the module will search for log entries that can record UNC2452 techniques. The log records may also capture legitimate administrator activity, and will need to be verified.
 
 * **Update Application** - Records actions taken to update App Registrations. 
 * **Set Domain Auth** - Records when authentication settings for a domain are changed, including the creation of federation realm objects. These events should occur rarely in an environment and may indicate a threat actor configuring an AAD backdoor.
