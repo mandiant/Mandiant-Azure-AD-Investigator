@@ -233,7 +233,7 @@ function Get-MandiantBulkUAL {
       .SYNOPSIS
       Wrapper for the Search-UnifiedAidtLog cmdlet that automatically pages through the results up to 50,000 entries per query. 
       Currently, the default cmdlet Search-UnifiedAuditLog is limited to 5000 results per query. This can be limiting during 
-      investigations within a large tenant. This cmdlet will recrusvsiely query a large session and collect up to 50,000 results. 
+      investigations within a large tenant. This cmdlet will recursively query a large session and collect up to 50,000 results. 
       Additionally, Get-BulkUAL will also attempt to handle some of exceptions that occur when collectiong large amounts of data, 
       such as Exchange returning no results.  Be patient while running this script as it is calling remote resources through a 
       Remote PowerShell Session. The default result size is set to 1000 due to observed reliability with Search-UnifiedAuditLog cmdlet
