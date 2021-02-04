@@ -189,7 +189,7 @@ To grant an account `View-Only Audit Logs` in the Exchange Control Panel:
 1. Download this tool as a ZIP and unzip it, or clone the repository to your system
 2. Open a PowerShell window
 3. Change directories to the location of this module `cd C:\path\to\the\module`
-4. Import this module `Import-Module MandiantAzureADInvestigator.psd1` you should receive this output
+4. Import this module `Import-Module .\MandiantAzureADInvestigator.psd1` you should receive this output
 ```
 
       Mandiant Azure AD Investigator
