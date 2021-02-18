@@ -796,6 +796,55 @@ function Get-MandiantUnc2452AuditLogs
     }
 }
 
+function Get-MandiantMailboxFolderPermissions
+{
+    Param(
+        [Parameter(Mandatory = $true)]
+        $OutputPath
+    )
+    Try {
+        If ((Test-Path -Path $OutputPath) -eq $false) {
+            Write-Verbose -Message "Output path $OutputPath does not exist creating folder"
+            $null = New-Item -ItemType Directory -Path $OutputPath -Force -ErrorAction Stop
+        }
+        Write-Host -Object "Auditing mailbox folder permissions..." -ForegroundColor Green
+        Write-Host -Object "This may take awhile (an hour+ if you have a large tenant) hold tight..." -ForegroundColor Green
+        Write-Host -Object "Results are written to folder_permissions.csv. If the file is empty you have nothing to do!" -ForegroundColor Green
+        $mailboxes = Get-EXOMailbox -ResultSize Unlimited
+
+        [int]$i = 0
+
+        foreach ($mbox in $mailboxes) {
+            Write-Progress -Activity "Processing Mailbox $i of $($mailboxes.count)" -PercentComplete ($i/$mailboxes.count*100) -CurrentOperation "User : $($mbox.UserPrincipalName)"
+    
+            Try{
+                #Retrieve Top of Information Store (root) permissions for Anonymous and Default user. Output results if permissions are not set to None
+                Get-EXOMailboxFolderPermission -Identity ($mbox.UserPrincipalName) -ErrorAction SilentlyContinue | `
+                Where-Object {$_.AccessRights -ne "None" -and ($_.User -match "Anonymous" -or $_.User -match "Default")} | `
+                Select-Object  @{Name = 'UserPrincipalName'; Expression = {$mbox.UserPrincipalName}}, FolderName,User,@{Label="AccessRights";Expression={$_.AccessRights -join ","}} | `
+                Export-Csv -NoTypeInformation -Path $(Join-Path -Path $OutputPath -ChildPath "folder_permissions.csv")
+
+                #Retrieve Inbox folder permissions for Anonymous and Default user. Output results if permissions are not set to None
+                Get-EXOMailboxFolderPermission -Identity ($mbox.UserPrincipalName + ':\inbox') -ErrorAction SilentlyContinue | `
+                Where-Object {$_.AccessRights -ne "None" -and ($_.User -match "Anonymous" -or $_.User -match "Default")} | `
+                Select-Object  @{Name = 'UserPrincipalName'; Expression = {$mbox.UserPrincipalName}}, FolderName,User,@{Label="AccessRights";Expression={$_.AccessRights -join ","}} | `
+                Export-Csv -NoTypeInformation -Path $(Join-Path -Path $OutputPath -ChildPath "folder_permissions.csv")
+
+                $i++
+
+            } Catch {
+                Write-Warning -Message "Problem accessing Mailbox Folders permissions for $($mbox.UserPrincipalName)."
+                continue
+            }
+        }
+
+
+    } catch {
+        Write-Warning -Message 'Problem auditing mailbox folder permissions'
+        Write-Warning -Message $_
+        break
+    }
+}
 function Invoke-MandiantAllChecks
 {
     Param(

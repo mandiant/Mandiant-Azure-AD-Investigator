@@ -183,6 +183,12 @@
                 "query" : "Get-MandiantBulkUAL -FreeText '1b730954-1685-4b74-9bfd-dac224a7b894'",
                 "outputfile" : "powershell_authentication",
                 "dateoffset": 90
+            },
+            {
+                "description": "Search for Mailbox folder permission modificatons.",
+                "query": "Get-MandiantBulkUAL -Operations 'ModifyFolderPermissions'",
+                "outputfile": "modify_folder_permissions",
+                "dateoffset": 90
             }
         ]
     }
