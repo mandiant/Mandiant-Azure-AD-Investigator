@@ -864,6 +864,7 @@ function Invoke-MandiantAllChecks
         Invoke-MandiantAuditAzureADServicePrincipals -OutputPath $OutputPath
         Invoke-MandiantAuditAzureADDomains -OutputPath $OutputPath
         Invoke-MandiantGetCSPInformation
+        Get-MandiantMailboxFolderPermissions -OutputPath $OutputPath
         Get-MandiantUnc2452AuditLogs -OutputPath $OutputPath
         
     }

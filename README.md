@@ -19,7 +19,7 @@ With community feedback, the tool may become more thorough in its detection of I
 
 ## Features
 
-### Federated Domains
+### Federated Domains (Invoke-MandiantAuditAzureADDomains)
 
 This module uses MS Online PowerShell to look for and audit federated domains in Azure AD. All federated domains will be output to the file `federated domains.csv`.
 
@@ -50,7 +50,7 @@ Signing cert not valid after: 12/31/2025 23:59:59
 ```
 :warning: The script has identified a federated domain with a token-signing certificate that is valid for longer than the standard 365 days. Consult with your administrators to see if the token-signing certificate is manually managed and if it is expected to have the stated validity period. Consider performing a forensic investigation if this is not expected.
 
-### Service Principals
+### Service Principals (Invoke-MandiantAuditAzureADServicePrincipals)
 
 This module uses Azure AD PowerShell to look for and audit Service Principals in Azure AD.
 
@@ -98,7 +98,7 @@ Risky Permissions    : Domain.ReadWrite.All
 ```
 :warning: The script has identified a Service Principal with high-risk API permissions and added credentials. This may be expected, as some third-party or custom-built applications require added credentials in order to function. This may also be an artifact of UNC2452 activity in your environment. Consult with your administrators and search the audit logs to verify the credential is legitimate. You can also use the "Service Principal Sign-Ins" tab in the Azure AD Sign-Ins blade to search for authentications to your tenant using this Service Principal.
 
-### Applications
+### Applications (Invoke-MandiantAuditAzureADApplications)
 
 This module uses Azure AD PowerShell to look for and audit Applications in Azure AD.
 
@@ -134,13 +134,17 @@ Directory.Read.All (Read all data in the organization directory)
 ```
 :warning: The script has identified an Application with high-risk API permissions and added credentials. This may be expected, as some third-party or custom-built applications require added credentials in order to function. This may also be an artifact of UNC2452 activity in your environment. Consult with your administrators and search the audit logs to verify the credential is legitimate.
 
-### Cloud Solution Provider Program
+### Cloud Solution Provider Program (Invoke-MandiantGetCSPInformation)
 
 This module checks to see if the tenant is managed by a CSP, or partner, and if delegated administration is enabled. Delegated administration allows the CSP to access a customer tenant with the same privileges as a Global Administrator. Although the CSP program enforces strong security controls on the partner's tenant, a threat actor that compromises the CSP may be able to access customer environments. Organizations should verify if their partner needs delegated admin privileges and remove it if not. If the partner must maintain delegated admin access, consider implementing Conditional Access Policies to restrict their access.
 
 Organizations can check and manage partner relationships by navigating to the [Admin Center](https://admin.microsoft.com) and navigating to `Settings` -> `Partner Relationships` on the left-hand menu bar.
 
-### Unified Audit Log
+### Mailbox Folder Permissions (Get-MandiantMailboxFolderPermissions)
+
+This module audits all the mailboxes in the tenant for the existance of suspicious folder permissions. Specifically, this module will examine the "Top of Information Store" and "Inbox" folders in each mailbox and check the permissions assigned to the "Default" and "Anonymous" users. Any value other than "None" will result in the mailbox being flagged for analysis. In general the Default and Anonymous users should not have permissions on user inboxes as this will allow any user to read their contents. Some organizations may find shared mailboxes with this permission, but it is not recommended practice.
+
+### Unified Audit Log (Get-MandiantUnc2452AuditLogs)
 
 This module is a helper script to search the Unified Audit Log. Searching the Unified Audit Log has many technical caveats that can be easy to overlook. This module can help simplify the search process by implementing best practices for navigating these caveats and handling some common errors.
 
@@ -225,7 +229,7 @@ Account                                              Environment TenantId       
 -------                                              ----------- --------                             ------------
 doug@test.onmicrosoft.com AzureCloud  xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx test.onm...
 ```
-5. Run all checks `Invoke-MandiantAllChecks -OutputPath <path\to\output\files>`
+5. Run all checks `Invoke-MandiantAllChecks -OutputPath <path\to\output\files>`. You can also run individual checks using the specific cmdlet.
 6. Review the output on the screen and the written CSV files.
 
 ## Further Reading
