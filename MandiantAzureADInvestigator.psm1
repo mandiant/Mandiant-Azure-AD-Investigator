@@ -822,13 +822,13 @@ function Get-MandiantMailboxFolderPermissions
                 Get-EXOMailboxFolderPermission -Identity ($mbox.UserPrincipalName) -ErrorAction SilentlyContinue | `
                 Where-Object {$_.AccessRights -ne "None" -and ($_.User -match "Anonymous" -or $_.User -match "Default")} | `
                 Select-Object  @{Name = 'UserPrincipalName'; Expression = {$mbox.UserPrincipalName}}, FolderName,User,@{Label="AccessRights";Expression={$_.AccessRights -join ","}} | `
-                Export-Csv -NoTypeInformation -Path $(Join-Path -Path $OutputPath -ChildPath "folder_permissions.csv")
+                Export-Csv -NoTypeInformation -Append -Path $(Join-Path -Path $OutputPath -ChildPath "folder_permissions.csv")
 
                 #Retrieve Inbox folder permissions for Anonymous and Default user. Output results if permissions are not set to None
                 Get-EXOMailboxFolderPermission -Identity ($mbox.UserPrincipalName + ':\inbox') -ErrorAction SilentlyContinue | `
                 Where-Object {$_.AccessRights -ne "None" -and ($_.User -match "Anonymous" -or $_.User -match "Default")} | `
                 Select-Object  @{Name = 'UserPrincipalName'; Expression = {$mbox.UserPrincipalName}}, FolderName,User,@{Label="AccessRights";Expression={$_.AccessRights -join ","}} | `
-                Export-Csv -NoTypeInformation -Path $(Join-Path -Path $OutputPath -ChildPath "folder_permissions.csv")
+                Export-Csv -NoTypeInformation -Append -Path $(Join-Path -Path $OutputPath -ChildPath "folder_permissions.csv")
 
                 $i++
 
