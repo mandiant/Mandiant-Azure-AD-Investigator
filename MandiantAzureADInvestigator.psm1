@@ -813,6 +813,10 @@ function Get-MandiantApplicationImpersonationHolders
         ForEach ($Group in $AppImperGroups){
             Get-RoleGroupMember $Group.Name | Export-Csv -NoTypeInformation -Append -Path $(Join-Path -Path $OutputPath -ChildPath "application_impersonation_holders.csv")
         }       
+    } catch {
+        Write-Warning -Message 'Problem auditing Application Impersonation'
+        Write-Warning -Message $_
+        break
     }
 }
 function Get-MandiantMailboxFolderPermissions

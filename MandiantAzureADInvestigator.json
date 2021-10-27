@@ -193,7 +193,7 @@
             { 
                 "description": "Search for new Management Role Assignments.",
                 "query": "Get-MandiantBulkUAL -Operations New-ManagementRoleAssignment",
-                "outputfule": "new_managementrole_assignments",
+                "outputfile": "new_managementrole_assignments",
                 "dateoffset": 90
             }
         ]
