@@ -14,7 +14,7 @@ It will *not*:
 * Identify a compromise 100% of the time, or
 * Tell you if an artifact is legitimate admin activity or threat actor activity.
 
-With community feedback, the tool may become more thorough in its detection of IOCs. Please open an [issue](https://github.com/fireeye/Mandiant-Azure-AD-Investigator/issues), [submit a PR](https://github.com/fireeye/Mandiant-Azure-AD-Investigator/pulls), or contact the authors if you have problems, ideas, or feedback.
+With community feedback, the tool may become more thorough in its detection of IOCs. Please open an [issue](https://github.com/mandiant/Mandiant-Azure-AD-Investigator/issues), [submit a PR](https://github.com/mandiant/Mandiant-Azure-AD-Investigator/pulls), or contact the authors if you have problems, ideas, or feedback.
 
 
 ## Features
@@ -144,6 +144,10 @@ Organizations can check and manage partner relationships by navigating to the [A
 
 This module audits all the mailboxes in the tenant for the existance of suspicious folder permissions. Specifically, this module will examine the "Top of Information Store" and "Inbox" folders in each mailbox and check the permissions assigned to the "Default" and "Anonymous" users. Any value other than "None" will result in the mailbox being flagged for analysis. In general the Default and Anonymous users should not have permissions on user inboxes as this will allow any user to read their contents. Some organizations may find shared mailboxes with this permission, but it is not recommended practice.
 
+### Application Impersonation (Get-MandiantApplicationImpersonationHolders)
+
+This module outputs the list of users and groups that hold the ApplicationImpersonation role. Any user or member of a group in the output of this command can use impersonation to "act as" and access the mailbox of any other user in the tenant. Organizations should audit the output of this command to ensure that only expected users and groups are included, and where possible further restrict the scope.
+
 ### Unified Audit Log (Get-MandiantUnc2452AuditLogs)
 
 This module is a helper script to search the Unified Audit Log. Searching the Unified Audit Log has many technical caveats that can be easy to overlook. This module can help simplify the search process by implementing best practices for navigating these caveats and handling some common errors.
@@ -160,6 +164,7 @@ By default, the module will search for log entries that can record UNC2452 techn
 * **Add App Role Assignment** - Records when an App Role (Application Permission) is added.
 * **App Role Assignment for User** - Records when an App Role is assigned to a user.
 * **PowerShell Authentication** - Records when a user authenticates to Azure AD using a PowerShell client.
+* **New Management Role Assignments** - Records when new management role assignments are created. This can be useful to identify new ApplicationImpersonation grants.
 
 ## Usage
 
@@ -235,7 +240,7 @@ doug@test.onmicrosoft.com AzureCloud  xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx test.
 ## Further Reading
 
 For additional information from FireEye regarding UNC2452, please see:
-* [Highly Evasive Attacker Leverages SolarWinds Supply chain to Compromise Multiple Global Victims with SUNBURST Backdoor](https://www.fireeye.com/blog/threat-research/2020/12/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor.html)
+* [Highly Evasive Attacker Leverages SolarWinds Supply chain to Compromise Multiple Global Victims with SUNBURST Backdoor](https://www.mandiant.com/resources/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor)
 
 
-The response to UNC2452 has been a significant effort across the security industry and these blogs heavily cite additional contributions that will be of value to users of this tool. We recommend reading the linked material from these posts to best understand activity in your environment. As always, the FireEye Mandiant team is available to answer follow-up questions or further assist on an investigation [by contacting us here.](https://www.fireeye.com/company/incident-response.html)
+The response to UNC2452 has been a significant effort across the security industry and these blogs heavily cite additional contributions that will be of value to users of this tool. We recommend reading the linked material from these posts to best understand activity in your environment. As always, the FireEye Mandiant team is available to answer follow-up questions or further assist on an investigation [by contacting us here.](https://www.mandiant.com/report-incident)

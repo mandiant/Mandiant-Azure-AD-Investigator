@@ -43,7 +43,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     FileList = '.\MandiantAzureADInvestigator.psm1','.\MandiantAzureADInvestigator.psd1','.\Initialization.ps1', '.\MandiantAzureADInvestigator.json'
 
     # Functions to Export
-    FunctionsToExport = 'Connect-MandiantAzureEnvironment','Get-MandiantMailboxFolderPermissions','Invoke-MandiantAllChecks','Get-MandiantUnc2452AuditLogs','Invoke-MandiantAuditAzureADDomains','Get-MandiantBulkUAL','Invoke-MandiantAuditAzureADServicePrincipals','Invoke-MandiantAuditAzureADApplications','Invoke-MandiantGetCSPInformation','Disconnect-MandiantAzureEnvironment'
+    FunctionsToExport = 'Connect-MandiantAzureEnvironment','Get-MandiantMailboxFolderPermissions','Invoke-MandiantAllChecks','Get-MandiantUnc2452AuditLogs','Invoke-MandiantAuditAzureADDomains','Get-MandiantBulkUAL','Invoke-MandiantAuditAzureADServicePrincipals','Invoke-MandiantAuditAzureADApplications','Invoke-MandiantGetCSPInformation','Disconnect-MandiantAzureEnvironment', 'Get-MandiantApplicationImpersonationHolders'
   
     }
     

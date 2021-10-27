@@ -189,6 +189,12 @@
                 "query": "Get-MandiantBulkUAL -Operations 'ModifyFolderPermissions'",
                 "outputfile": "modify_folder_permissions",
                 "dateoffset": 90
+            },
+            { 
+                "description": "Search for new Management Role Assignments.",
+                "query": "Get-MandiantBulkUAL -Operations New-ManagementRoleAssignment",
+                "outputfule": "new_managementrole_assignments",
+                "dateoffset": 90
             }
         ]
     }

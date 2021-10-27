@@ -796,6 +796,25 @@ function Get-MandiantUnc2452AuditLogs
     }
 }
 
+function Get-MandiantApplicationImpersonationHolders
+{
+    Param(
+        [Parameter(Mandatory = $true)]
+        $OutputPath
+    )
+    Try {
+        If ((Test-Path -Path $OutputPath) -eq $false) {
+            Write-Verbose -Message "Output path $OutputPath does not exist creating folder"
+            $null = New-Item -ItemType Directory -Path $OutputPath -Force -ErrorAction Stop
+        }
+        Write-Host -Object "Auditing ApplicationImpersonation role holders..." -ForegroundColor Green
+        Write-Host -Object "Results are written to application_impersonation_holders.csv. If the file is empty, then no users or groups hold this role." -ForegroundColor Green
+        $AppImperGroups = Get-RoleGroup | Where-Object Roles -like ApplicationImpersonation
+        ForEach ($Group in $AppImperGroups){
+            Get-RoleGroupMember $Group.Name | Export-Csv -NoTypeInformation -Append -Path $(Join-Path -Path $OutputPath -ChildPath "application_impersonation_holders.csv")
+        }       
+    }
+}
 function Get-MandiantMailboxFolderPermissions
 {
     Param(
@@ -866,6 +885,7 @@ function Invoke-MandiantAllChecks
         Invoke-MandiantGetCSPInformation
         Get-MandiantMailboxFolderPermissions -OutputPath $OutputPath
         Get-MandiantUnc2452AuditLogs -OutputPath $OutputPath
+        Get-MandiantApplicationImpersonationHolders -OutputPath $OutputPath
         
     }
 }
