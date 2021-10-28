@@ -588,7 +588,7 @@ function Invoke-MandiantGetCSPInformation {
             Write-Host -Object "!! Identified partner relationship with Delegated Admin enabled" -ForegroundColor Yellow
             Write-Host -Object "This means that a partner can access your tenant with the same privileges as a Global Admin."
             Write-Host -Object "Verify if this level of privilege is necessary and remove it if not. Go to the Partner Relationships setting in the 365 Admin Center to manage this."
-            Write-Host -Object "If necessary, consider implementing Conditional Access Policies to limt partner access to certain IP addresses"
+            Write-Host -Object "If necessary, consider implementing Conditional Access Policies to limit partner access to certain IP addresses"
 
         } else {
             Write-Host -Object "No partner relationship found."
@@ -602,7 +602,7 @@ function Invoke-MandiantGetCSPInformation {
             Write-Host -Object "!! Identified Exchange Online Role Groups that contain partner groups" -ForegroundColor Yellow
             Write-Host -Object "This means that a partner may have access to your tenant with elevated privileged."
             Write-Host -Object "Verify if this level of privilege is necessary and remove it if not. Go to the Partner Relationships setting in the 365 Admin Center to manage this."
-            Write-Host -Object "If necessary, consider implementing Conditional Access Policies to limt partner access to certain IP addresses"
+            Write-Host -Object "If necessary, consider implementing Conditional Access Policies to limit partner access to certain IP addresses"
         } else {
             Write-Host -Object "No partner groups found in EXO Role Groups."
         }
