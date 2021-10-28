@@ -592,7 +592,21 @@ function Invoke-MandiantGetCSPInformation {
 
         } else {
             Write-Host -Object "No partner relationship found."
+            Write-Host -Object "Make sure to run this check with Global Administrator account as partner relationships are not visible to global or security reader roles."
         }
+        
+        Write-Host -Object "Checking for partner groups in EXO Role Groups..." -ForegroundColor Green
+        $rg = Get-RoleGroup | ? Capabilities -match Partner_Managed | ? Members -match PartnerRoleGroup
+        if ($rg)
+        {
+            Write-Host -Object "!! Identified Exchange Online Role Groups that contain partner groups" -ForegroundColor Yellow
+            Write-Host -Object "This means that a partner may have access to your tenant with elevated privileged."
+            Write-Host -Object "Verify if this level of privilege is necessary and remove it if not. Go to the Partner Relationships setting in the 365 Admin Center to manage this."
+            Write-Host -Object "If necessary, consider implementing Conditional Access Policies to limt partner access to certain IP addresses"
+        } else {
+            Write-Host -Object "No partner groups found in EXO Role Groups."
+        }
+
     }
 }
 function Invoke-MandiantAuditAzureADApplications {
