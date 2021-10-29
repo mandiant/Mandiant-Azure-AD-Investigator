@@ -241,6 +241,7 @@ doug@test.onmicrosoft.com AzureCloud  xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx test.
 
 For additional information from FireEye regarding UNC2452, please see:
 * [Highly Evasive Attacker Leverages SolarWinds Supply chain to Compromise Multiple Global Victims with SUNBURST Backdoor](https://www.mandiant.com/resources/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor)
+* [Remediation and Hardening Strategies for Microsoft 365 to Defend Against UNC2452](https://www.mandiant.com/resources/remediation-and-hardening-strategies-for-microsoft-365-to-defend-against-unc2452)
 
 
 The response to UNC2452 has been a significant effort across the security industry and these blogs heavily cite additional contributions that will be of value to users of this tool. We recommend reading the linked material from these posts to best understand activity in your environment. As always, the FireEye Mandiant team is available to answer follow-up questions or further assist on an investigation [by contacting us here.](https://www.mandiant.com/report-incident)
