@@ -170,7 +170,7 @@ By default, the module will search for log entries that can record UNC2452 techn
 
 ### Required Modules
 
-The PowerShell module requires the installation of three Microsoft 365 PowerShell module.
+The PowerShell module requires the installation of three Microsoft 365 PowerShell modules.
 * AzureAD
 * MSOnline
 * ExchangeOnlineManagement
