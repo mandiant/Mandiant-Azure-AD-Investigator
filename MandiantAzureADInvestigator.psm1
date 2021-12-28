@@ -145,7 +145,7 @@ function Invoke-MandiantAuditAzureADDomains {
                     continue
                 }
 
-                $signing_cert_base64 = $domain.SigningCertificate
+                $signing_cert_base64 = $federation_data.SigningCertificate
                 if ($signing_cert_base64 -ne $null) {
                     $signing_cert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2
                     $signing_cert.import([Convert]::FromBase64String($signing_cert_base64))
@@ -166,8 +166,8 @@ function Invoke-MandiantAuditAzureADDomains {
                         Write-Host -Object $signing_cert.NotBefore -ForegroundColor Red
                     }
 
-                    if ($domain.NextSigningCertificate -ne $null) {
-                        $next_signing_cert_base64 = $domain.NextSigningCertificate
+                    if ($federation_data.NextSigningCertificate -ne $null) {
+                        $next_signing_cert_base64 = $federation_data.NextSigningCertificate
                         $next_signing_cert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2
                         $next_signing_cert.import([Convert]::FromBase64String($next_signing_cert_base64))
                         $next_signing_cert_subject = $next_signing_cert.Subject
