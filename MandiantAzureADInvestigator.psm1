@@ -649,9 +649,10 @@ function Invoke-MandiantAuditAzureADApplications {
             $apps = Get-AzureADApplication -All $True
 
             $results = @()
+            $today = Get-Date
             foreach ($App in $apps) {
                 Write-Verbose -Message "Application Name : $($app.DisplayName) :: $($App.id)"
-                if ($App.PasswordCredentials.Count -ne 0 -or $App.KeyCredentials.Count -ne 0) {
+                if (($App.PasswordCredentials.Count -ne 0 -and $App.PasswordCredentials.EndDate -gt $today) -or ($App.KeyCredentials.Count -ne 0 -and $App.KeyCredentials.EndDate -gt $today)) {
                     $hit = $false
                     foreach ($permission in $App.RequiredResourceAccess) {
                         Write-Verbose -Message "Permission :: $permission"
@@ -661,6 +662,7 @@ function Invoke-MandiantAuditAzureADApplications {
                             Write-Verbose -Message "Category :: $category"
                             $risky = $defs.$resource_id.$category.PSObject.Properties.Name
                             $res = Compare-Object -ReferenceObject $risky -DifferenceObject $requiredRoles -PassThru -IncludeEqual -ExcludeDifferent
+                            # exclude the apps that have expired creds
                             if ($res -ne $null) {
                                 $Permissions = Get-ApplicationPermissions -App $App -Permissions $defs
                                 
