@@ -1,5 +1,5 @@
 <#
-Copyright 2021 FireEye, Inc.
+Copyright 2022 Mandiant.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
@@ -569,6 +569,88 @@ function Invoke-MandiantAuditAzureADServicePrincipals {
     }
 }
 
+function Invoke-MandiantCheckAuditing {
+    <#
+    .SYNOPSIS
+    Checks users in the tenant to see if any Advanced Audit eligible users have it disabled.
+    
+    .DESCRIPTION
+    Microsoft 365 E5 license holders can enable Advanced Audit (now called Purview Audit (Premium)).
+    This feature enables the MailItemsAccesed log, which records all accesses to individual mail items.
+    Mandiant has observed APT29 disable this license prior to collecting email messages from user mailboxes.
+    
+    #>
+    Param(
+        [Parameter(Mandatory = $true)]
+        [string]$OutputPath
+    )
+    Process {
+        Write-Host -Object "Checking for E5 users with Advanced Audit disabled..." -ForegroundColor Green
+        
+        Write-Host -Object "Pulling down licensed users..."
+        $Users = Get-MgUser -All -Property assignedLicenses, userPrincipalName
+        $skus = Invoke-MGGraphRequest -Uri 'https://graph.microsoft.com/beta/subscribedSkus'
+
+        #Create hashtable of License SKU Info for lookup
+        $skuLookup = @{}
+        foreach ($sku in $skus.value) {
+            if (($sku.ServicePlans | Where-Object { $_.ServicePlanName -eq 'M365_ADVANCED_AUDITING' })) {
+                $advancedAuditingAvailable = $true
+                $provisioningStatus = ($sku.ServicePlans | Where-Object {
+                        $_.ServicePlanName -eq 'M365_ADVANCED_AUDITING'
+                    }).ProvisioningStatus
+            }
+            else {
+                $advancedAuditingAvailable = $false
+                $provisioningStatus = 'Not Supported'
+            }
+            
+            $data = [PSCustomObject]@{
+                AdvAuditAvailable = $advancedAuditingAvailable
+                ProvStatus        = $provisioningStatus
+                SkuPartNumber     = $sku.skuPartNumber
+            }
+            $skuLookup.Add($sku.skuId, $data)
+        }
+
+        #Map license SKUs to lookup data
+        $BasicResults = foreach ($User in $Users) {
+            foreach ($assignedLic in $user.assignedLicenses) {
+                If ($skuLookup[$assignedLic.skuId].AdvAuditAvailable) {
+                    [PSCustomObject]@{
+                        'User' = $user.userPrincipalName
+                    }
+                }
+            }
+        }
+
+        
+        $advancedAuditOutput = $BasicResults | ForEach-Object -Begin { $i = 1 } {
+            Write-Progress -Activity "Processing Mailbox $i of $($BasicResults.count)" -PercentComplete ($i/$BasicResults.count*100) -CurrentOperation "User : $($_.User)"
+            $userLicenses = Get-MgUserLicenseDetail -UserID $_.User -Property SkuPartNumber, ServicePlans
+            foreach ($License in $userLicenses) {
+                $AdvancedAuditingAvailable = [bool]($License.ServicePlans | Where-Object { $_.ServicePlanName -eq 'M365_ADVANCED_AUDITING' }).ServicePlanName
+                if ($AdvancedAuditingAvailable) {
+                    $status = ($License.ServicePlans | Where-Object { $_.ServicePlanName -eq 'M365_ADVANCED_AUDITING' }).ProvisioningStatus
+                    [PSCustomObject]@{
+                        UPN                    = $_.User
+                        Licenses               = $License.SkuPartNumber
+                        M365_ADVANCED_AUDITING = $advancedAuditingAvailable
+                        Status                 = $status
+                    }
+                }
+            }
+            $i++
+        }
+            
+        
+        
+
+        $advancedAuditOutput | Export-Csv -NoTypeInformation -Path $(Join-Path -Path $OutputPath -ChildPath 'advanced_audit_disabled.csv')
+
+    }
+    
+}
 function Invoke-MandiantGetCSPInformation {
     <#
     .SYNOPSIS
@@ -741,6 +823,10 @@ function Connect-MandiantAzureEnvironment {
         # Connecting to Exchange Online
         Write-Verbose -Message "Connecting to Exchange Online for $ExchangeEnvironment"
         Connect-ExchangeOnline -UserPrincipalName $UserPrincipalName -ExchangeEnvironmentName $ExchangeEnvironment -ErrorAction Stop
+    
+        # Connecting to Graph
+        Write-Verbose -Message "Connecting to the MS Graph"
+        Connect-MgGraph -Scopes User.Read.All,Directory.Read.All
     }
     catch {
         Write-Warning -Message 'Problem connecting to Azure Environment'
@@ -887,9 +973,10 @@ function Invoke-MandiantAllChecks
         Invoke-MandiantAuditAzureADServicePrincipals -OutputPath $OutputPath
         Invoke-MandiantAuditAzureADDomains -OutputPath $OutputPath
         Invoke-MandiantGetCSPInformation
-        Get-MandiantMailboxFolderPermissions -OutputPath $OutputPath
         Get-MandiantUnc2452AuditLogs -OutputPath $OutputPath
         Get-MandiantApplicationImpersonationHolders -OutputPath $OutputPath
+        Get-MandiantMailboxFolderPermissions -OutputPath $OutputPath
+        
         
     }
 }
@@ -905,12 +992,15 @@ function Disconnect-MandiantAzureEnvironment {
     Try{
         # Disconnecting to MsolService
         Write-Verbose -Message "Disconnecting to Azure Environment"
-        # Connecting to AzureAD
+        # Disconnecting to AzureAD
         Write-Verbose -Message "Disconnecting to Azure AD"
         Disconnect-AzureAD
-        # Connecting to Exchange Online
+        # Disconnecting to Exchange Online
         Write-Verbose -Message "Disconnecting to Exchange Online"
         Disconnect-ExchangeOnline
+        # Disconnecting MS Graph
+        Write-Verbose -Message "Disconnecting MS Graph"
+        Disconnect-MgGraph
     }
     catch {
         Write-Warning -Message 'Problem Disconnecting to Azure Environment'

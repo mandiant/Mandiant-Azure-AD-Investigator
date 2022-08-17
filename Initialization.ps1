@@ -1,5 +1,5 @@
 ﻿<#
-Copyright 2021 FireEye, Inc.
+Copyright 2022 Mandiant.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
@@ -10,7 +10,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 $Initialization = @"
 
       Mandiant Azure AD Investigator
-    Focusing on UNC2452 Investigations
+    Focusing on APT29 Investigations
   
 "@
 

@@ -148,6 +148,10 @@ This module audits all the mailboxes in the tenant for the existance of suspicio
 
 This module outputs the list of users and groups that hold the ApplicationImpersonation role. Any user or member of a group in the output of this command can use impersonation to "act as" and access the mailbox of any other user in the tenant. Organizations should audit the output of this command to ensure that only expected users and groups are included, and where possible further restrict the scope.
 
+### Purview Audit (Formerly Advanced Audity) (Invoke-MandiantCheckAuditing)
+
+This module will enumerate all licensed users in the tenant that are licensed for Purview Audit Mail Items Accessed. It will generate a CSV report documenting whether or not the feature has been enabled on an eligible mailbox. Organizations should filter on mailboxes that are eligible for Mail Items Accessed but have the feature disabled and verify that this is intentional.
+
 ### Unified Audit Log (Get-MandiantUnc2452AuditLogs)
 
 This module is a helper script to search the Unified Audit Log. Searching the Unified Audit Log has many technical caveats that can be easy to overlook. This module can help simplify the search process by implementing best practices for navigating these caveats and handling some common errors.
@@ -174,6 +178,7 @@ The PowerShell module requires the installation of three Microsoft 365 PowerShel
 * AzureAD
 * MSOnline
 * ExchangeOnlineManagement
+* Microsoft.Graph
 
 To install the modules:
 1. Open a PowerShell window as a local administrator (right-click then select Run As Administrator)
@@ -183,6 +188,7 @@ To install the modules:
 The PowerShell module must be run with a Microsoft 365 account assigned specific privileges.
 * `Global Administrator` or `Global Reader` role in the Azure AD portal
 * `View-Only Audit Logs` in the Exchange Control Panel
+* `User.Read.All` and `Directory.Read.All` scopes. `Global Reader` role holders should have the ability to use these scopes automatically.
 
 To grant an account `View-Only Audit Logs` in the Exchange Control Panel:
 1. Navigate to https://outlook.office365.com/ecp and login as a global admin or exchange admin (not the exact URL may differ if you are in an alternate cloud)

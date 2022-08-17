@@ -1,5 +1,5 @@
 <#
-Copyright 2021 FireEye, Inc.
+Copyright 2022 Mandiant.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
@@ -25,7 +25,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     Author = 'Douglas Bienstock'
     
     # Company or vendor of this module
-    CompanyName = 'FireEye Mandiant'
+    CompanyName = 'Mandiant'
     
     # Description of the functionality provided by this module
     Description = 'Tooling to assist with finding information regarding UNC2452'
@@ -43,7 +43,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     FileList = '.\MandiantAzureADInvestigator.psm1','.\MandiantAzureADInvestigator.psd1','.\Initialization.ps1', '.\MandiantAzureADInvestigator.json'
 
     # Functions to Export
-    FunctionsToExport = 'Connect-MandiantAzureEnvironment','Get-MandiantMailboxFolderPermissions','Invoke-MandiantAllChecks','Get-MandiantUnc2452AuditLogs','Invoke-MandiantAuditAzureADDomains','Get-MandiantBulkUAL','Invoke-MandiantAuditAzureADServicePrincipals','Invoke-MandiantAuditAzureADApplications','Invoke-MandiantGetCSPInformation','Disconnect-MandiantAzureEnvironment', 'Get-MandiantApplicationImpersonationHolders'
+    FunctionsToExport = 'Connect-MandiantAzureEnvironment','Get-MandiantMailboxFolderPermissions','Invoke-MandiantCheckAuditing','Invoke-MandiantAllChecks','Get-MandiantUnc2452AuditLogs','Invoke-MandiantAuditAzureADDomains','Get-MandiantBulkUAL','Invoke-MandiantAuditAzureADServicePrincipals','Invoke-MandiantAuditAzureADApplications','Invoke-MandiantGetCSPInformation','Disconnect-MandiantAzureEnvironment', 'Get-MandiantApplicationImpersonationHolders'
   
     }
     
