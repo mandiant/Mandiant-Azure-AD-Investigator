@@ -301,11 +301,11 @@ function Get-MandiantBulkUAL {
 
         # If startdate is not specified, use an the $DateOffset to select a time
         if ($StartDate -eq $null) {
-            $StartDate = (Get-Date).AddDays(-$DateOffset)
+            $StartDate = (Get-Date).AddDays(-$DateOffset).ToUniversalTime()
         }
     
         if ($EndDate -eq $null) {
-            $EndDate = (Get-Date).AddDays(1)
+            $EndDate = (Get-Date).AddDays(1).ToUniversalTime()
         }
     
         if ($EndDate -le $StartDate) {
@@ -328,8 +328,9 @@ function Get-MandiantBulkUAL {
         if ($IPAddresses.Length -gt 0) {
             $IPAddresses = " -IPAddresses '$IPAddresses'"
         }
-
-        $query = "Search-UnifiedAuditLog -StartDate '$StartDate' -EndDate '$EndDate' -ResultSize $($ResultSize) $($FreeText)$($Operations)$($IPAddresses)$($UserIds) -SessionCommand ReturnLargeSet" 
+        $formatedStartDate = Get-Date $StartDate -Format "yyyy-MM-dd HH:mm:ss"
+        $formatedEndDate = Get-Date $StartDate -Format "yyyy-MM-dd HH:mm:ss"
+        $query = "Search-UnifiedAuditLog -StartDate '$formatedStartDate' -EndDate '$formatedEndDate' -ResultSize $($ResultSize) $($FreeText)$($Operations)$($IPAddresses)$($UserIds) -SessionCommand ReturnLargeSet"
         Write-Verbose -Message "Base Query: $($query)"
         Add-Content -Value "$fileTime :: $query" -Path $(Join-Path -Path $OutputPath -ChildPath "UALQuerySearch.txt")
     }
