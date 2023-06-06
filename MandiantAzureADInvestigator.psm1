@@ -301,11 +301,11 @@ function Get-MandiantBulkUAL {
 
         # If startdate is not specified, use an the $DateOffset to select a time
         if ($StartDate -eq $null) {
-            $StartDate = (Get-Date).AddDays(-$DateOffset).ToUniversalTime(
+            $StartDate = (Get-Date).AddDays(-$DateOffset).ToUniversalTime()
         }
     
         if ($EndDate -eq $null) {
-            $EndDate = (Get-Date).AddDays(1).ToUniversalTime(
+            $EndDate = (Get-Date).AddDays(1).ToUniversalTime()
         }
     
         if ($EndDate -le $StartDate) {
